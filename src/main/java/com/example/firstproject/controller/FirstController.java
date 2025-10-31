@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 @Controller
 public class FirstController {
 
+  //1️⃣
   @GetMapping("/hi") // URL 요청 접수 부분
   public String niceToMeetYou(Model model){ // model 객체 받아오기
     
@@ -21,5 +22,5 @@ public class FirstController {
     
     return "greetings"; // greetings.mustache 파일 반환
   } 
-  
+ 
 }
