@@ -19,12 +19,20 @@ repositories {
 }
 
 dependencies {
+	// 기본 웹, JPA, Mustache
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-mustache'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	// H2 데이터베이스
 	runtimeOnly 'com.h2database:h2'
+
+	// 테스트
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// 자동 리로드 되도록 DevTools 추가
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 }
 
 tasks.named('test') {
