@@ -4,6 +4,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.ToString;
+
+@AllArgsConstructor
+@ToString
 
 @Entity // 1️⃣ 엔티티 선언
 public class Article {
@@ -17,18 +22,18 @@ public class Article {
   @Column // 4️⃣ content 필드 선언, DB 테이블의 content 열과 연결됨
   private String content;
 
-  // 5️⃣ Article 객체의 생성 및 초기화를 위해 생성자 생성하기
-  public Article(Long id, String title, String content) {
-    this.id = id;
-    this.title = title;
-    this.content = content;
-  }
+  // 5️⃣ Article 객체의 생성 및 초기화를 위해 생성자 생성하기 -> 롬복 추가로 제거
+  // public Article(Long id, String title, String content) {
+  //   this.id = id;
+  //   this.title = title;
+  //   this.content = content;
+  // }
 
-  // 6️⃣ toString() 메서드 추가하기
-  @Override
-  public String toString() {
-    return "Article [id=" + id + ", title=" + title + ", content=" + content + "]";
-  }
+  // 6️⃣ toString() 메서드 추가하기 -> 롬복 추가로 제거
+  // @Override
+  // public String toString() {
+  //   return "Article [id=" + id + ", title=" + title + ", content=" + content + "]";
+  // }
 
   
 }

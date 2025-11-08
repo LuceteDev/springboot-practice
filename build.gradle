@@ -22,6 +22,8 @@ dependencies {
 	// 기본 웹, JPA, Mustache
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-mustache'
+
+	// html, mustahce도 서버 재시작 없이 바로 로드 되도록 추가한 라이브러리 -> 그러나 안됨..
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
 	// H2 데이터베이스
@@ -33,6 +35,10 @@ dependencies {
 
 	// 자동 리로드 되도록 DevTools 추가
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// 2025.11.07 롬복 추가
+	compileOnly 'org.projectlombok:lombok:'
+	annotationProcessor 'org.projectlombok:lombok:'
 }
 
 tasks.named('test') {
