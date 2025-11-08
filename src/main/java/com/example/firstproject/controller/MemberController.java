@@ -9,9 +9,13 @@ import com.example.firstproject.dto.MemberForm;
 import com.example.firstproject.entity.Member;
 import com.example.firstproject.repository.MemberRepository;
 
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+
+@Slf4j // ✅ 2025.11.08 셀프체크 실습 코드 추가
 
 // 1️⃣ 컨트롤러 선언하기
 @Controller
@@ -38,21 +42,25 @@ public class MemberController {
   public String signupResult(MemberForm form) {
     
     // 4️⃣ DTO에 폼 데이터가 잘 담겼는지 확인하기
-    System.out.println(form.toString());
+    // System.out.println(form.toString());
+    // ✅ 롬복 코드로 즉 로깅 사용하기
+    log.info(form.toString());
 
     // 5️⃣ DTO를 엔티티로 변환
     Member member = form.toEntity();
     // 5️⃣ DTO가 엔티티로 잘 변환되는지 출력!  
-    System.out.println(member.toString()); 
-
+    // System.out.println(member.toString()); 
+    // ✅ 롬복 코드로 즉 로깅 사용하기
+    log.info(member.toString());
 
     // 6️⃣ 리포지터리로 엔티티를 DB에 저장
     Member saved = memberRepository.save(member);
     // 6️⃣ Member이 DB에 잘 저장되는지 출력!
-    System.out.println("DB" + saved.toString()); 
+    // System.out.println("DB" + saved.toString()); 
+    // ✅ 롬복 코드로 즉 로깅 사용하기
+    log.info(saved.toString());
 
-    
-      return "";
+    return "";
   }
   
   // 보완 포인트:

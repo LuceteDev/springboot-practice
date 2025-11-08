@@ -4,8 +4,13 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.ToString;
 
 @Entity // 1️⃣ 엔티티 선언하기
+@AllArgsConstructor // 5️⃣ 생성자 생성을 이 어노테이션으로 간결하게
+@ToString // 6️⃣ toString() 메서드를 간결하게 하기 위한 어노테이션
+
 public class Member {
   
   @Id // 2️⃣ 엔티티의 대표값 지정하기
@@ -18,16 +23,16 @@ public class Member {
   private String password;
 
   // 5️⃣ CTRL + . -> Generate Constructor 클릭하여 필드 3개 모두 선택하여 생성자 생성하기
-  public Member(Long id, String email, String password) {
-    this.id = id;
-    this.email = email;
-    this.password = password;
-  }
+  // public Member(Long id, String email, String password) {
+  //   this.id = id;
+  //   this.email = email;
+  //   this.password = password;
+  // }
 
   // 6️⃣ toString() 메서드 추가하기
-  @Override
-  public String toString(){
-    return "Member [id=" + id + ", email=" + email + ", password=" + password + "]";
-  }
+  // @Override
+  // public String toString(){
+  //   return "Member [id=" + id + ", email=" + email + ", password=" + password + "]";
+  // }
   
 }
