@@ -5,12 +5,14 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor // 기본 생성자 추가 어노테이션
 @ToString
+@Getter // 컨트롤러에서 saved.getId()를 사용하기 위해 추가한 어노테이션
 
 @Entity // 1️⃣ 엔티티 선언
 public class Article {
@@ -23,6 +25,7 @@ public class Article {
   private String title;
   @Column // 4️⃣ content 필드 선언, DB 테이블의 content 열과 연결됨
   private String content;
+
 
   // 5️⃣ Article 객체의 생성 및 초기화를 위해 생성자 생성하기 -> 롬복 추가로 제거
   // public Article(Long id, String title, String content) {

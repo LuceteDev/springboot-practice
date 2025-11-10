@@ -1,5 +1,7 @@
 package com.example.firstproject.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,22 +48,17 @@ public class ArticleController {
     // System.out.println("DB" + saved.toString()); // article이 DB에 잘 저장되는지 출력!
     log.info(saved.toString());
     
-    return "";
+    return "redirect:/articles/" + saved.getId(); // 엔티티에 @Getter 추가해주기
   }
   
   // 2025.11.08 추가 코드
-  @GetMapping("/articles/{id}") // 컨트롤러에서는 변수를 사용할땐 {} 는 하나만 사용함!
+  @GetMapping("/articles/{id}") // 2️⃣ 가져온 데이터를 모델에 등록하기, 컨트롤러에서는 변수를 사용할땐 {} 는 하나만 사용함!
   public String show(@PathVariable Long id, Model model) { // 매개변수로 id 받아오기
     // ✅ Pathvariable은 URL 요청으로 들어온 전달값을 컨트롤러의 매개변수로 가져오는 어노테이션
     log.info("id = " + id);
     //‼️ 4장에서 배운 로깅 기능을 이용해서 디버깅하기
 
-    // 1. id를 조회해 DB에서 해당 데이터 가져오기
-    // 2. 가져온 데이터를 모델에 등록하기
-    // 3. 조회한 데이터를 사용자에게 보여 주기 위한 뷰 페이지 만들고 반환하기
-  
-    
-    // id를 조회해 데이터 가져오기
+    // 1️⃣ id를 조회해 DB에서 해당 데이터 가져오기
     // Article articleEntity = articleRepository.findById(id);
     // ✅ articleRepository가 findBy(id)로 찾은 값을 반환할 때 
     // ✅ 반환형이 Article이 아니라서 오류가 발생 한 것을 Optional<> 로 반환형을 맞춰줘서 해결!
@@ -69,14 +66,51 @@ public class ArticleController {
     // Optional<Article> articleEntity = articleRepository.findById(id); // 이번 실습에선 사용하지 않음
     Article articleEntity = articleRepository.findById(id).orElse(null);
     
+
+    // 2️⃣ 모델에 데이터 등록하기
     // name이라는 이름으로 value 객체 추가
     // model.addAttribute(String name, Object value); ✅ 이러한 형식으로 사용!
     model.addAttribute("article", articleEntity);
     // article 라는 이름으로 articleEntity 엔티티/객체 추가
 
+    // 3️⃣ 조회한 데이터를 사용자에게 보여 주기 위한 뷰 페이지 만들고 반환하기
     return "articles/show";
-    // 뷰 페이지 반환하기
   }
+
+
+
+  @GetMapping("/articles")
+  public String index(Model model) { // 2️⃣ 모델에 데이터 등록하기
+    // 1️⃣ 모든 데이터 가져오기
+    // List<Article> articleEntityList = articleRepository.findAll(); 
+    // ❌ findAll() 메서드가 반환하는 데이터 타입은 Iterable 이어서 List<> 와는 타입이 다르기 때문에 발생한 에러!
+    // 해결방법 1️⃣ 다운 캐스팅 List<Article> articleEntityList = (List<Article>) articleRepository.findAll(); 
+    // 해결방법 2️⃣ 업 캐스팅 Iterable<Article> articleEntityList = articleRepository.findAll();
+    // 해결방법 3️⃣ findAll() 메서드가 Iterable이 아닌 ☑️ ArrayList 형으로 변환하도록 변경
+    ArrayList<Article> articleEntityList = articleRepository.findAll();
+
+    // 2️⃣ 모델에 데이터 등록하기
+    model.addAttribute("articleList", articleEntityList);
+
+    // 3️⃣ 뷰 페이지 설정하기  
+    return "articles/index";
+      
+  }
+
+@GetMapping("/articles/{id}/edit") // 2️⃣ URL 요청 접수
+public String edit(@PathVariable Long id, Model model) { // 1️⃣ 메서드 생성 및 뷰 페이지 설정
+
+  // 3️⃣ DB에서 수정할 데이터 가져오기
+  Article articleEntity = articleRepository.findById(id).orElse(null);
+
+  // 4️⃣ 모델에 데이터 등록하기
+  model.addAttribute("article", articleEntity);
+  
+  // ☑️ 뷰 페이지 설정
+  return "articles/edit";
+}
+
+  
   
 
 }

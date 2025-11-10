@@ -1,6 +1,6 @@
 {{>layouts/header}}
 
-<form action="/articles/signup-result" method="POST" class="container">
+<form action="/join" method="POST" class="container">
   <div class="mb-3">
     <label class="form-label">이메일</label>
     <input type="email" name="email" id="email" value="" placeholder="이메일 입력" class="form-control">
@@ -10,7 +10,7 @@
     <input type="password" name="password" id="password" value="" placeholder="비밀번호 입력" class="form-control">
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
-  <a href="#">Back</a>
+  <a href="/members">Back</a>
 </form>
 
 {{>layouts/footer}}
