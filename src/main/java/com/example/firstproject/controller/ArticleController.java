@@ -70,9 +70,12 @@ public class ArticleController {
     Article articleEntity = articleRepository.findById(id).orElse(null);
     
     // name이라는 이름으로 value 객체 추가
-    model.addAttribute(String name, Object value)
-    model.addAttribute("stricle", articleEntity);
-      return "";
+    // model.addAttribute(String name, Object value); ✅ 이러한 형식으로 사용!
+    model.addAttribute("article", articleEntity);
+    // article 라는 이름으로 articleEntity 엔티티/객체 추가
+
+    return "articles/show";
+    // 뷰 페이지 반환하기
   }
   
 
