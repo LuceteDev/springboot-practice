@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JacksonInject.Value;
 import lombok.val;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -130,6 +131,28 @@ public String update(ArticleForm form) { // 매개변수로 DTO 받아 오기 ->
 
   // 3️⃣ 수정 결과 페이지로 리다이렉트하기
     return "redirect:/articles/" + articleEntity.getId();
+}
+
+
+@GetMapping("/articles/{id}/delete") // URL 요청 접수
+public String delete(@PathVariable Long id, RedirectAttributes rttr) { // RedirectAttributes rttr 를 추가하여 삭제 완료 메시지 남기기
+  log.info("컨트롤러 접근시에 출력되는 삭제 요청이 접수되었다는 메시지");
+
+  // 1️⃣ 삭제할 대상 가져오기 -> 해당 id를 가져오기 위해 
+  // ✅ Pathvariable로 URL 요청으로 들어온 전달값을 컨트롤러의 매개변수로 가져오는 어노테이션 이용하기
+  Article target = articleRepository.findById(id).orElse(null);
+  log.info(target.toString());
+
+
+  // 2️⃣ 대상 엔티티 삭제하기 -> if 문으로 null 인지 확인하고 진행
+  if (target != null) {
+    articleRepository.delete(target);
+    rttr.addFlashAttribute("msg", "삭제됐습니다!");
+  }
+
+  // 3️⃣ 결과 페이지로 리다이렉트하기
+
+    return "redirect:/articles";
 }
 
   

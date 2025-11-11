@@ -3,7 +3,9 @@ package com.example.firstproject.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,12 +15,13 @@ import lombok.ToString;
 @NoArgsConstructor // 기본 생성자 추가 어노테이션
 @ToString
 @Getter // 컨트롤러에서 saved.getId()를 사용하기 위해 추가한 어노테이션
-
+@Table(name = "Article Table") // 생성 테이블명을 명시해보려고 추가한 어노테이션
 @Entity // 1️⃣ 엔티티 선언
 public class Article {
 
   @Id // 2️⃣ 엔티티의 대푯값 지정
-  @GeneratedValue // 3️⃣ 자동 생성 기능 추가 (숫자가 자동으로 매겨짐!)
+  // 👇 3️⃣ 자동 생성 기능 추가 (숫자가 자동으로 매겨짐!)
+  @GeneratedValue(strategy = GenerationType.IDENTITY) // (strategy = GenerationType.IDENTITY) -> DB가 id 자동 생성하도록 설정! [더미 코드가 있을 경우 기본키 위반이 출력되기 때문!]
   private Long id;
 
   @Column // 4️⃣ title 필드 선언, DB 테이블의 title 열과 연결됨

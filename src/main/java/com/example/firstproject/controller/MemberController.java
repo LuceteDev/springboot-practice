@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.ui.Model;
 
 import com.example.firstproject.dto.MemberForm;
@@ -111,9 +112,8 @@ public class MemberController {
     Member memberEntity = memberRepository.findById(id).orElse(null);
 
     model.addAttribute("members_edit_page", memberEntity);
-
-
-      return "members/edit";
+    
+    return "members/edit";
   }
   
   
@@ -131,6 +131,21 @@ public class MemberController {
       }
       
       return "redirect:/members/" + memberEntity.getId();
+  }
+  
+  @GetMapping("/members/{id}/delete")
+  public String delete(@PathVariable Long id, RedirectAttributes rttr) {
+    log.info("delete 메소드 호출");
+
+    Member target = memberRepository.findById(id).orElse(null);
+    log.info(target.toString());
+
+    if(target != null){
+      memberRepository.delete(target);
+      rttr.addFlashAttribute("msg", "삭제 성공!");
+    }
+
+      return "redirect:/members";
   }
   
   
