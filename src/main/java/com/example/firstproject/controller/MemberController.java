@@ -104,6 +104,34 @@ public class MemberController {
     // 3️⃣ 뷰 페이지 설정하기  
       return "members/index";
   }
+
+  @GetMapping("/members/{id}/edit")
+  public String edit(@PathVariable Long id, Model model) {
+
+    Member memberEntity = memberRepository.findById(id).orElse(null);
+
+    model.addAttribute("members_edit_page", memberEntity);
+
+
+      return "members/edit";
+  }
+  
+  
+  @PostMapping("/members/update")
+  public String update(MemberForm form) { // DTO 매개변수로 넣기
+      log.info(form.toString());
+
+      Member memberEntity = form.toEntity(); // DTO를 엔티티로 변환하기
+      log.info(memberEntity.toString());
+
+      Member target = memberRepository.findById(memberEntity.getId()).orElse(null);
+
+      if (target != null) {
+        memberRepository.save(memberEntity);
+      }
+      
+      return "redirect:/members/" + memberEntity.getId();
+  }
   
   
 }

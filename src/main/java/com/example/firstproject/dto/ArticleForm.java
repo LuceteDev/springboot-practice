@@ -15,6 +15,7 @@ import lombok.ToString;
 public class ArticleForm {
 
   // 1️⃣ 필드 선언하기
+  private Long id;
   private String title; // 제목을 받을 필드
   private String content; // 내용을 받을 필드
 
@@ -35,7 +36,7 @@ public class ArticleForm {
 
   // 4️⃣ toEntity() 메서드 자동 코드 생성으로 생성한것
   public Article toEntity() {
-    return new Article(null, title, content);
+    return new Article(id, title, content);
   }
 
 }

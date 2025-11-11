@@ -19,6 +19,8 @@ import com.fasterxml.jackson.annotation.JacksonInject.Value;
 import lombok.val;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @Slf4j // 로깅 기능을 위한 어노테이션 추가
@@ -110,7 +112,26 @@ public String edit(@PathVariable Long id, Model model) { // 1️⃣ 메서드 �
   return "articles/edit";
 }
 
+@PostMapping("/articles/update")
+public String update(ArticleForm form) { // 매개변수로 DTO 받아 오기 -> 수정 폼에서 전송한 데이터는 DTO로 받는다? 왜지?
+  log.info(form.toString());
   
+  // 1️⃣ DTO를 엔티티로 변환하기
+  Article articleEntity = form.toEntity(); // DTO(form)를 엔티티(articleEntity)로 변환하기
+  log.info(articleEntity.toString());
+
+  // 2️⃣ 엔티티를 DB에 저장하기
+  Article target = articleRepository.findById(articleEntity.getId()).orElse(null); // 2️⃣-1️⃣ DB에서 기존 데이터 가져오기
+
+  // 2️⃣-2️⃣ 기존 데이터 값을 갱신하기
+  if (target != null) {
+    articleRepository.save(articleEntity); // 엔티티를 DB에 저장(갱신)
+  }
+
+  // 3️⃣ 수정 결과 페이지로 리다이렉트하기
+    return "redirect:/articles/" + articleEntity.getId();
+}
+
   
 
 }
