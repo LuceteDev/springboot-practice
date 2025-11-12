@@ -11,12 +11,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Table(name = "Member Table")
 @Entity // 1️⃣ 엔티티 선언하기
 @AllArgsConstructor // 5️⃣ 생성자 생성을 이 어노테이션으로 간결하게
 @NoArgsConstructor // 2-5 셀프체크 기본 생성자 추가하기
 @ToString // 6️⃣ toString() 메서드를 간결하게 하기 위한 어노테이션
 @Getter
+// @Table(name="Member_Table")
 
 public class Member {
   
