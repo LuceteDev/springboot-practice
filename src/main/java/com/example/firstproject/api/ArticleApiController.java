@@ -28,23 +28,38 @@ public class ArticleApiController {
   @Autowired // 3️⃣ 게시글 리포지터리 주입하기
   private ArticleRepository articleRepository;
 
-  // ✅ GET //
+  
+  // 〰️〰️〰️〰️〰️〰️〰️〰️ GET/POST/PATCH/DELETE 매핑 확인 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ //
 
-  // 전체 게시글 조회
+
+
+  // ✅ GET - 전체 게시글 조회 //
+
   @GetMapping("/api/articles")
   public List<Article> index() { // 2️⃣ index() 메서드 정의하기
       return articleRepository.findAll();
   }
 
-  // 단일 게시글 조회
+
+  // 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ 영역 분리 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ //
+
+
+
+  // ✅ GET - 개별 조회 //
+  // ⚠️ GET 단일 조회: @PathVariable Long id 사용
+
   @GetMapping("/api/articles/{id}") // 1️⃣ URL 정의하기
   public Article show(@PathVariable Long id) { // 2️⃣ URL의 id를 매개변수로 받아올 수 있도록 수정
       return articleRepository.findById(id).orElse(null);
   }
 
-  // ✅ POST //
+
+  // 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ 영역 분리 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ //
+
+
+  // ✅ POST - 값 제출 및 저장하기 //
+  // ⚠️ POST 생성: @RequestBody CoffeeDto dto → Entity 변환 후 save
   
-  // 값 제출 및 저장하기
   @PostMapping("/api/articles") // 1️⃣ URL 정의하기
   public Article create(@RequestBody ArticleForm dto) { // 2️⃣ 값 저장을 위해 DTO에 접근할 수 있도록 매개변수 넣기
       
@@ -52,11 +67,15 @@ public class ArticleApiController {
 
       return articleRepository.save(article);
   }
+
+
+  // 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ 영역 분리 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ //
   
 
-  // ✅ PATCH //
+  // ✅ PATCH - 값 전체 및 일부 수정하기 //
+  // ⚠️ PATCH 수정: 기존 Entity 조회 → patch() 적용 → save
+  // ⚠️ REST API 에서의 PATCH는 @RequestBody 를 사용해야함
 
-  // 값 전체 수정하기
   @PatchMapping("/api/articles/{id}") // 1️⃣ URL 정의하기
   public ResponseEntity<Article> update(@PathVariable Long id, @RequestBody ArticleForm dto){
     // 1️⃣ DTO -> 엔티티 변환하기
@@ -87,7 +106,14 @@ public class ArticleApiController {
     return ResponseEntity.status(HttpStatus.OK).body(updated); // 4️⃣.2️⃣ 200으로 정상 응답하기
   }
 
- // ✅ DELETE // 
+
+  // 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ 영역 분리 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ //
+
+
+  // ✅ DELETE - 게시글 삭제 //
+  // ⚠️ DELETE: 기존 Entity 조회 → delete
+  // ⚠️ log.info()로 요청 DTO, DB Entity 값 확인
+
  @DeleteMapping("/api/articles/{id}")
  public ResponseEntity<Article> delete(@PathVariable Long id){
   

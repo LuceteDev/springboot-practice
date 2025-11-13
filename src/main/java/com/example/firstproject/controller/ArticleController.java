@@ -43,15 +43,17 @@ public class ArticleController {
 
     // 1️⃣ DTO를 엔티티로 변환
     Article article = form.toEntity();
-    // 2️⃣ 리파지토리로 엔티티를 DB에 저장
     // System.out.println("DTO" + article.toString()); // DTO가 엔티티로 잘 변환되는지 출력!
     log.info(article.toString());
-
-    Article saved = articleRepository.save(article);
-    // System.out.println("DB" + saved.toString()); // article이 DB에 잘 저장되는지 출력!
-    log.info(saved.toString());
     
-    return "redirect:/articles/" + saved.getId(); // 엔티티에 @Getter 추가해주기
+    // 2️⃣ 리파지토리로 엔티티를 DB에 저장
+    Article saved = articleRepository.save(article);
+    log.info(saved.toString());
+    // System.out.println("DB" + saved.toString()); // article이 DB에 잘 저장되는지 출력!
+    
+    // 3️⃣ 뷰 페이지 반환 
+    // ✅ ⚠️엔티티에 @Getter 추가해주기
+    return "redirect:/articles/" + saved.getId();
   }
   
   // 2025.11.08 추가 코드
@@ -121,8 +123,8 @@ public String update(ArticleForm form) { // 매개변수로 DTO 받아 오기 ->
   Article articleEntity = form.toEntity(); // DTO(form)를 엔티티(articleEntity)로 변환하기
   log.info(articleEntity.toString());
 
-  // 2️⃣ 엔티티를 DB에 저장하기
-  Article target = articleRepository.findById(articleEntity.getId()).orElse(null); // 2️⃣-1️⃣ DB에서 기존 데이터 가져오기
+  // 2️⃣ DB에 저장된 게시글을 폼 데이터를 엔티티로 변환한 Article 객체의 id를 기준으로 조회해서 꺼내온 원본 데이터 저장
+  Article target = articleRepository.findById(articleEntity.getId()).orElse(null); 
 
   // 2️⃣-2️⃣ 기존 데이터 값을 갱신하기
   if (target != null) {

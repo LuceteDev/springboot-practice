@@ -79,6 +79,7 @@ public class MemberController {
   // 마지막에 return ""; 대신, 결과 페이지를 반환하거나 redirect를 쓰는 게 좋습니다.
 
 
+  // ✅ 개별 게시글 보기
   @GetMapping("/members/{id}")
   public String show(@PathVariable Long id, Model model) { // 2️⃣ 가져온 데이터를 모델에 등록하기
     log.info("id = " + id);
@@ -93,6 +94,7 @@ public class MemberController {
       return "members/show";
   }
   
+  // ✅ 전체 게시글 보기
   @GetMapping("/members")
   public String index(Model model) {
     // 1️⃣ 모든 데이터 가져오기 -> 실습 했던 대로 ArrayList<> 를 이용하기
@@ -106,6 +108,7 @@ public class MemberController {
       return "members/index";
   }
 
+  // ✅ 게시글 수정을 위해서 각 게시글의 정보를 그대로 수정페이지로 넘기는 역할
   @GetMapping("/members/{id}/edit")
   public String edit(@PathVariable Long id, Model model) {
 
@@ -116,7 +119,7 @@ public class MemberController {
     return "members/edit";
   }
   
-  
+  // ✅ 게시글 수정
   @PostMapping("/members/update")
   public String update(MemberForm form) { // DTO 매개변수로 넣기
       log.info(form.toString());
@@ -132,7 +135,8 @@ public class MemberController {
       
       return "redirect:/members/" + memberEntity.getId();
   }
-  
+
+  // ✅ 게시글 삭제
   @GetMapping("/members/{id}/delete")
   public String delete(@PathVariable Long id, RedirectAttributes rttr) {
     log.info("delete 메소드 호출");
