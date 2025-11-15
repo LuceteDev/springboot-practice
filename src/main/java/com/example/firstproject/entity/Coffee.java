@@ -28,6 +28,7 @@ public class Coffee {
   private String price;
 
 
+  // 6️⃣ - UPDATE 메서드때 사용될 patch 메서드 정의 (PATCH(update 쿼리) 컨트롤러 정의할 때 생성)
   public void patch(Coffee coffee) {
     if (coffee.name != null) { // 즉 갱신할 값이 들어오면 
     this.name = coffee.name; // 갱신하는 것!
