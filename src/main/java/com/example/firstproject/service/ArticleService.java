@@ -21,13 +21,19 @@ public class ArticleService {
   @Autowired
   private ArticleRepository articleRepository; // 게시글 리포지터리 객체 주입
 
+  // 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ 영역 분리 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ //
+
   public List<Article> index() {
     return articleRepository.findAll();
   }
 
+  // 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ 영역 분리 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ //
+
   public Article show(Long id) {
     return articleRepository.findById(id).orElse(null);
   }
+
+  // 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ 영역 분리 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ //
 
   public Article create(ArticleForm dto) {
     Article article = dto.toEntity();
@@ -38,6 +44,9 @@ public class ArticleService {
     
     return articleRepository.save(article);
   }
+
+  // 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ 영역 분리 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ //
+
 
   public Article update(Long id, ArticleForm dto) {
 
@@ -63,6 +72,10 @@ public class ArticleService {
     return updated; // 응답은 컨트롤러가 하므로 여기서는 수정 데이터만 반환
   }
 
+
+  // 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ 영역 분리 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ //
+
+
   public Article delete(Long id) {
 
     // 1️⃣ 대상 찾기
@@ -78,6 +91,9 @@ public class ArticleService {
     return target;
 
   }
+
+  // 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ 영역 분리 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ //
+  
 
   public List<Article> createArticles(List<ArticleForm> dtos) {
     

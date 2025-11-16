@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.firstproject.dto.ArticleForm;
 import com.example.firstproject.entity.Article;
-import com.example.firstproject.repository.ArticleRepository;
 import com.example.firstproject.service.ArticleService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -32,9 +30,6 @@ public class ArticleApiController {
 
   @Autowired
   private ArticleService articleService; // 서비스 객체 주입
-
-//   @Autowired // 3️⃣ 게시글 리포지터리 주입하기
-//   private ArticleRepository articleRepository;
 
   
   // 〰️〰️〰️〰️〰️〰️〰️〰️ GET/POST/PATCH/DELETE 매핑 확인 〰️〰️〰️〰️〰️〰️〰️〰️ //
@@ -90,7 +85,7 @@ public class ArticleApiController {
 
   @PatchMapping("/api/articles/{id}") // 1️⃣ URL 정의하기
   public ResponseEntity<Article> update(@PathVariable Long id, @RequestBody ArticleForm dto){
-    // 1️⃣ DTO -> 엔티티 변환하기
+    
     Article updated = articleService.update(id, dto); // 서비스를 통해 게시글 수정
 
     return (updated != null) ? // ⚠️ 수정되면 정상, 실패시 오류 응답하기 
@@ -109,10 +104,10 @@ public class ArticleApiController {
  @DeleteMapping("/api/articles/{id}")
  public ResponseEntity<Article> delete(@PathVariable Long id){
   
-  // 1️⃣ 대상 찾기 - 서비스를 통해 게시글 삭제
+  // 1️⃣ 대상 찾기 - 서비스에 위임
   Article deleted = articleService.delete(id);
 
-  return (deleted != null) ? // 삭제 결과에 따라 응답 처리
+  return (deleted != null) ? // ⚠️ 삭제 결과에 따라 응답 처리
   ResponseEntity.status(HttpStatus.OK).body(deleted) :
   ResponseEntity.status(HttpStatus.BAD_GATEWAY).build();
 
