@@ -85,9 +85,9 @@ public class ArticleServiceTest {
 
   @Test
   @Transactional
-  void testDelete_실패_존재하지_않는_id_입력 () {
+  void testDelete_실패_존재하지_않는_id_입력 () { // ⚠️ null 이 반환되어야 성공인 테스트
     // 1️⃣ 예상 데이터 작성하기
-    Long id = -2L;
+    Long id = -1L;
     Article expected = null;
 
     // 2️⃣ 실제 데이터 획득하기
