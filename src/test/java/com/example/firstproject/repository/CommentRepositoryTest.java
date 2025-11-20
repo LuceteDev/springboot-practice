@@ -36,6 +36,10 @@ class CommentRepositoryTest {
             assertEquals(expected.toString(), comments.toString(), "4번 글의 모든 댓글을 출력!");
         }
 
+
+        // 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ 영역 분리 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ //
+
+
         /* Case 2️⃣: 1번 게시글의 모든 댓글 조회 */
         {
             // 1️⃣. 입력 데이터 준비
@@ -48,6 +52,10 @@ class CommentRepositoryTest {
             // 4️⃣. 비교 및 검증
             assertEquals(expected.toString(), comments.toString(), "1번 글은 댓글이 없음");
         }
+
+        
+        // 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ 영역 분리 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ //
+
 
         /* Case 3️⃣: 9번 게시글의 모든 댓글 조회 */
         {
@@ -63,6 +71,10 @@ class CommentRepositoryTest {
                     "9번 글 자체가 없으므로 댓글은 비어 있어야 함");
         }
 
+
+        // 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ 영역 분리 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ //
+
+
         /* Case 4️⃣: 999번 게시글의 모든 댓글 조회 */
         {
             // 1️⃣. 입력 데이터 준비
@@ -76,6 +88,10 @@ class CommentRepositoryTest {
             assertEquals(expected.toString(), comments.toString(),
                     "999번 글 자체가 없으므로, 댓글은 비어 있어야 함");
         }
+
+
+        // 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ 영역 분리 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ //
+
 
         /* Case 5: -1번 게시글의 모든 댓글 조회 */
         {
@@ -92,13 +108,17 @@ class CommentRepositoryTest {
         }
     }
 
+
+    // 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ 영역 분리 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ //
+
+
     @Test
     @DisplayName("특정 닉네임의 모든 댓글 조회")
     void findByNickname() {
         /* Case 1️⃣: "Park"의 모든 댓글 조회 */
         {
             // 1️⃣. 입력 데이터 준비
-            String nickname = "Park";
+            String nickname = "Pㄹark";
             // 2️⃣. 실제 데이터
             List<Comment> comments = commentRepository.findByNickname(nickname);
             // 3️⃣. 예상 데이터
@@ -112,6 +132,10 @@ class CommentRepositoryTest {
             // 4️⃣. 비교 및 검증
             assertEquals(expected.toString(), comments.toString(), "Park의 모든 댓글을 출력!");
         }
+
+
+        // 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ 영역 분리 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ //
+
 
         /* Case 2️⃣: "Kim"의 모든 댓글 조회 */
         {
@@ -132,6 +156,10 @@ class CommentRepositoryTest {
                     "Kim의 모든 댓글을 출력!");
         }
 
+
+        // 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ 영역 분리 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ //
+
+
         /* Case 3️⃣: null의 모든 댓글 조회 */
         {
             // 1️⃣. 입력 데이터 준비
@@ -144,6 +172,10 @@ class CommentRepositoryTest {
             assertEquals(expected.toString(), comments.toString(),
                     "null의 모든 댓글을 출력!");
         }
+
+
+        // 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ 영역 분리 〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️〰️ //
+        
 
         /* Case 4️⃣: ""의 모든 댓글 조회 */
         {

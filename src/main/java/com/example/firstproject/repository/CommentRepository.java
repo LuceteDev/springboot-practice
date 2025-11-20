@@ -22,6 +22,8 @@ public interface CommentRepository extends JpaRepository<Comment, Long>{
   
   // 〰️〰️〰️ 특정 닉네임의 모든 댓글 조회 〰️〰️〰️ //
   // 4️⃣ xml로 쿼리 실행해보기
-  List<Comment> findByNickname(String nickname);
+  // @Query(nativeQuery = true, name = "Comment.findByNickname")
+  List<Comment> findByNickname(@Param("nickname") String nickname);
+  // List<Comment> findByNickname(String nickname);
 
 }
